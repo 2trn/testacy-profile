@@ -3,22 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gernel Business Club</title>
+    <title>Kernel Business Club</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* ================= ПЕРЕМЕННЫЕ И БАЗОВЫЕ НАСТРОЙКИ ================= */
         :root {
-            --bg-color: #F7F4EE;
-            --dark-color: #000000;
-            --text-color: #000000;
-            --text-muted: rgba(0, 0, 0, 0.4);
+            --bg-color: #f7f4ee;
+            --dark-color: #000;
+            --text-color: #000;
+            --text-muted: rgba(0, 0, 0, 0.62);
             --font-main: 'Inter Tight', sans-serif;
-            --border-rad-lg: 100px;
-            --border-rad-md: 60px;
-            --border-rad-sm: 20px;
-            --container-width: 1440px;
+            --radius-lg: 72px;
+            --radius-md: 36px;
+            --radius-sm: 20px;
+            --radius-pill: 999px;
+            --container-width: 1280px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            --space-24: 96px;
+            --transition: 0.25s ease;
         }
 
         * {
@@ -27,53 +39,100 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: var(--font-main);
             background-color: var(--bg-color);
             color: var(--text-color);
+            line-height: 1.5;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+        }
+
+        main {
+            display: block;
         }
 
         .container {
             max-width: var(--container-width);
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 var(--space-8);
         }
 
         img {
             max-width: 100%;
             height: auto;
-            border-radius: var(--border-rad-sm);
+            border-radius: var(--radius-sm);
+            display: block;
         }
 
-        button, a {
-            cursor: pointer;
-            transition: all 0.3s ease;
+        a {
+            color: inherit;
             text-decoration: none;
+        }
+
+        button,
+        input,
+        textarea {
             font-family: inherit;
         }
 
-        /* ================= HEADER ================= */
+        button,
+        a {
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition), color var(--transition), opacity var(--transition);
+        }
+
+        :where(a, button, input, textarea):focus-visible {
+            outline: 3px solid #1f58ff;
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 0;
+            padding: var(--space-8) 0;
             position: relative;
-            z-index: 10;
+            z-index: 20;
         }
 
         .logo {
             font-size: 24px;
             font-weight: 600;
-            letter-spacing: -1px;
+            letter-spacing: -0.02em;
             color: var(--dark-color);
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: var(--space-10);
+            align-items: center;
         }
 
         .nav-links a {
@@ -86,26 +145,59 @@
         .nav-links a::after {
             content: '';
             position: absolute;
-            width: 0%;
+            width: 0;
             height: 2px;
             bottom: -4px;
             left: 0;
             background-color: var(--dark-color);
-            transition: width 0.3s ease;
+            transition: width var(--transition);
         }
 
         .nav-links a:hover::after {
             width: 100%;
         }
 
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.65);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 18px;
+            height: 2px;
+            border-radius: 2px;
+            background: #111;
+            transition: transform var(--transition), opacity var(--transition);
+        }
+
+        .menu-toggle[aria-expanded='true'] span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-toggle[aria-expanded='true'] span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle[aria-expanded='true'] span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
         .btn-outline {
-            padding: 12px 24px;
+            padding: 11px 22px;
             border: 1px solid var(--dark-color);
-            border-radius: 50px;
+            border-radius: var(--radius-pill);
             font-weight: 600;
             color: var(--dark-color);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
         }
 
         .btn-outline:hover {
@@ -114,392 +206,447 @@
             transform: translateY(-2px);
         }
 
-        /* ================= HERO SECTION ================= */
         .hero {
             position: relative;
             text-align: center;
-            padding: 120px 0 150px;
+            padding: 104px 0 128px;
             overflow: hidden;
-            background: radial-gradient(circle at top, rgba(255,255,255,0.8) 0%, transparent 70%);
-            border-bottom-left-radius: var(--border-rad-lg);
-            border-bottom-right-radius: var(--border-rad-lg);
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.86) 0%, transparent 70%);
+            border-bottom-left-radius: var(--radius-lg);
+            border-bottom-right-radius: var(--radius-lg);
         }
 
-        /* Анимированный фон (эллипс) */
-        .hero-glow {
+        .hero-glow,
+        .hero-glow-2 {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(180deg, #FFCA67 0%, #FD9F9F 100%);
-            filter: blur(120px);
             border-radius: 50%;
-            top: 10%;
-            left: 10%;
             z-index: -1;
-            opacity: 0.6;
-            animation: floatGlow 10s infinite alternate ease-in-out;
+            opacity: 0.45;
+            animation: floatGlow 13s infinite alternate ease-in-out;
+        }
+
+        .hero-glow {
+            width: 420px;
+            height: 420px;
+            background: linear-gradient(180deg, #ffca67 0%, #fd9f9f 100%);
+            filter: blur(90px);
+            top: 8%;
+            left: 8%;
         }
 
         .hero-glow-2 {
-            position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 340px;
+            height: 340px;
             background: linear-gradient(180deg, rgba(190, 159, 253, 0.7) 0%, rgba(103, 255, 225, 0.7) 100%);
-            filter: blur(150px);
-            border-radius: 50%;
-            bottom: 10%;
-            right: 10%;
-            z-index: -1;
-            animation: floatGlow 12s infinite alternate-reverse ease-in-out;
+            filter: blur(110px);
+            bottom: 8%;
+            right: 8%;
+            animation-direction: alternate-reverse;
         }
 
         @keyframes floatGlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 50px) scale(1.2); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(40px, 28px) scale(1.12);
+            }
         }
 
         .hero h1 {
-            font-size: clamp(40px, 5vw, 65px);
-            font-weight: 500;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 600;
             line-height: 1.1;
-            max-width: 1000px;
-            margin: 0 auto 30px;
-            background: linear-gradient(81.31deg, #000000 30%, #999999 100%);
+            max-width: 980px;
+            margin: 0 auto var(--space-6);
+            background: linear-gradient(81deg, #000 30%, #777 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: clamp(18px, 2vw, 24px);
+            font-size: clamp(18px, 1.95vw, 24px);
             color: var(--text-muted);
             max-width: 800px;
-            margin: 0 auto 50px;
+            margin: 0 auto var(--space-12);
             font-weight: 500;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .btn-black {
             background-color: var(--dark-color);
             color: var(--bg-color);
-            padding: 20px 50px;
-            border-radius: 100px;
-            font-size: 24px;
+            padding: 18px 40px;
+            border-radius: var(--radius-pill);
+            font-size: clamp(18px, 2.4vw, 24px);
             font-weight: 600;
             border: none;
             display: inline-flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            gap: var(--space-3);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
         }
 
         .btn-black:hover {
-            transform: scale(1.05);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 42px rgba(0, 0, 0, 0.2);
         }
 
-        /* ================= ABOUT SECTION ================= */
+        .btn-black:active {
+            transform: scale(0.98);
+        }
+
         .about {
-            padding: 100px 0;
+            padding: var(--space-24) 0;
             text-align: center;
         }
 
         .about h2 {
             font-size: clamp(30px, 4vw, 44px);
             font-weight: 600;
-            max-width: 900px;
-            margin: 0 auto 80px;
+            max-width: 920px;
+            margin: 0 auto var(--space-16);
             line-height: 1.2;
         }
 
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: var(--space-10);
             text-align: left;
         }
 
         .about-card {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: var(--space-5);
         }
 
         .about-card h3 {
-            font-size: 32px;
+            font-size: clamp(28px, 2.7vw, 34px);
             font-weight: 500;
+            line-height: 1.2;
         }
 
         .about-card p {
-            font-size: 24px;
+            font-size: clamp(18px, 2vw, 24px);
             color: var(--text-muted);
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .about-card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
-            border-radius: var(--border-rad-sm);
-            transition: transform 0.3s ease;
+            border-radius: var(--radius-sm);
+            transition: transform 0.35s ease;
         }
+
         .about-card img:hover {
             transform: scale(1.02);
         }
 
-        /* ================= SPEAKER SLIDER ================= */
         .speaker-benefits {
-            padding: 100px 0;
+            padding: var(--space-24) 0;
             position: relative;
         }
 
         .speaker-slider {
-            background: #FFFFFF;
-            border-radius: var(--border-rad-lg);
-            padding: 60px 80px;
+            background: #fff;
+            border-radius: var(--radius-lg);
+            padding: var(--space-16) var(--space-16);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            gap: var(--space-10);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
             position: relative;
             z-index: 2;
         }
 
-        /* Имитация слоев сзади слайдера */
-        .slider-bg-1, .slider-bg-2 {
+        .slider-bg-1,
+        .slider-bg-2 {
             position: absolute;
-            top: 100px;
-            bottom: 100px;
-            border-radius: var(--border-rad-lg);
+            top: 90px;
+            bottom: 90px;
+            border-radius: var(--radius-lg);
             z-index: 0;
         }
-        .slider-bg-1 { left: 20px; right: 20px; background: #F4F4F4; transform: translateY(-20px); }
-        .slider-bg-2 { left: 50px; right: 50px; background: #EBEBEB; transform: translateY(-40px); }
+
+        .slider-bg-1 {
+            left: 24px;
+            right: 24px;
+            background: #f0f0f0;
+            transform: translateY(-14px);
+        }
+
+        .slider-bg-2 {
+            left: 52px;
+            right: 52px;
+            background: #e5e5e5;
+            transform: translateY(-28px);
+        }
 
         .slider-content {
-            max-width: 500px;
+            max-width: 520px;
         }
 
         .slider-label {
-            color: #D9D9D9;
-            font-size: 24px;
+            color: #8f8f8f;
+            font-size: 16px;
             text-transform: uppercase;
-            margin-bottom: 40px;
+            margin-bottom: var(--space-6);
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 0.1em;
         }
 
         .slider-title {
-            font-size: clamp(36px, 4vw, 58px);
+            font-size: clamp(32px, 4vw, 56px);
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: var(--space-4);
         }
 
         .slider-text {
-            font-size: clamp(20px, 2vw, 32px);
+            font-size: clamp(19px, 2vw, 30px);
             color: var(--text-muted);
-            line-height: 1.2;
+            line-height: 1.25;
+        }
+
+        .slider-title,
+        .slider-text,
+        .slider-image img {
+            transition: opacity var(--transition), transform var(--transition);
         }
 
         .slider-image img {
-            width: 450px;
-            height: 500px;
+            width: 420px;
+            height: 480px;
             object-fit: cover;
-            border-radius: var(--border-rad-md);
+            border-radius: var(--radius-md);
         }
 
         .slider-controls {
-            margin-top: 40px;
+            margin-top: var(--space-8);
             display: flex;
-            gap: 15px;
+            gap: var(--space-3);
         }
 
         .slider-btn {
-            width: 60px;
-            height: 60px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             border: none;
-            background: #D7D7D7;
+            background: #d7d7d7;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            line-height: 1;
         }
-        .slider-btn:hover { background: #c0c0c0; transform: scale(1.1); }
 
-        /* ================= EVENTS SLIDER ================= */
+        .slider-btn:hover {
+            background: #c3c3c3;
+            transform: translateY(-2px);
+        }
+
         .events {
-            padding: 100px 0;
+            padding: var(--space-24) 0;
             overflow: hidden;
         }
 
         .events h2 {
             font-size: clamp(32px, 4vw, 44px);
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: var(--space-16);
         }
 
         .events-wrapper {
             display: flex;
-            gap: 30px;
+            gap: var(--space-8);
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            padding-bottom: 40px;
-            scrollbar-width: none; /* Firefox */
+            padding-bottom: var(--space-8);
+            scrollbar-width: none;
         }
-        .events-wrapper::-webkit-scrollbar { display: none; } /* Chrome */
+
+        .events-wrapper::-webkit-scrollbar {
+            display: none;
+        }
 
         .event-card {
-            min-width: 450px;
+            min-width: min(450px, 90vw);
             scroll-snap-align: start;
         }
 
         .event-card img {
             width: 100%;
-            height: 400px;
+            height: 380px;
             object-fit: cover;
-            border-radius: var(--border-rad-md);
-            margin-bottom: 20px;
-            transition: transform 0.4s ease;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-5);
+            transition: transform var(--transition), box-shadow var(--transition);
         }
 
         .event-card:hover img {
-            transform: scale(1.03);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         .event-card h4 {
-            font-size: 32px;
+            font-size: clamp(28px, 3vw, 34px);
             font-weight: 500;
-            margin-bottom: 10px;
+            margin-bottom: var(--space-2);
+            line-height: 1.2;
         }
 
         .event-card .subtitle {
-            font-size: 20px;
+            font-size: clamp(18px, 1.9vw, 20px);
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin-bottom: var(--space-4);
         }
 
         .event-card .quote {
             font-size: 18px;
             font-style: italic;
-            margin-bottom: 30px;
+            margin-bottom: var(--space-6);
         }
 
         .event-author {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: var(--space-3);
             font-size: 18px;
         }
-        .author-role { font-weight: 600; }
-        .author-company { color: var(--text-muted); }
 
-        /* ================= CONTACT FORM & FOOTER ================= */
+        .author-role {
+            font-weight: 600;
+        }
+
+        .author-company {
+            color: var(--text-muted);
+        }
+
+        .events-controls {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+            margin-top: var(--space-4);
+        }
+
         .contact-section {
             background-color: var(--dark-color);
-            color: white;
-            border-top-left-radius: var(--border-rad-lg);
-            border-top-right-radius: var(--border-rad-lg);
-            padding: 120px 0 60px;
+            color: #fff;
+            border-top-left-radius: var(--radius-lg);
+            border-top-right-radius: var(--radius-lg);
+            padding: 110px 0 60px;
             position: relative;
             overflow: hidden;
         }
 
-        /* Блики на фоне контактов */
         .contact-glow-1 {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(180deg, #FF7676 0%, #FF67A4 100%);
-            filter: blur(150px);
-            bottom: -200px;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(180deg, #ff7676 0%, #ff67a4 100%);
+            filter: blur(110px);
+            bottom: -180px;
             left: -100px;
-            opacity: 0.5;
+            opacity: 0.42;
             border-radius: 50%;
         }
 
         .contact-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: var(--space-16);
             position: relative;
             z-index: 2;
         }
 
         .contact-header h2 {
             font-size: clamp(36px, 5vw, 60px);
-            margin-bottom: 20px;
+            margin-bottom: var(--space-3);
         }
 
         .contact-header p {
-            font-size: clamp(18px, 2vw, 32px);
-            color: rgba(255, 255, 255, 0.5);
-            max-width: 800px;
+            font-size: clamp(18px, 2vw, 28px);
+            color: rgba(255, 255, 255, 0.72);
+            max-width: 780px;
             margin: 0 auto;
+            line-height: 1.35;
         }
 
         .form-container {
             background: rgba(32, 32, 32, 0.48);
-            backdrop-filter: blur(32px);
-            border-radius: 80px;
-            padding: 60px;
-            max-width: 1000px;
+            backdrop-filter: blur(22px);
+            border-radius: 56px;
+            padding: var(--space-12);
+            max-width: 980px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: var(--space-4);
         }
 
         .form-control {
             width: 100%;
-            background: rgba(196, 196, 196, 0.1);
-            border: none;
-            border-radius: 20px;
-            padding: 30px 40px;
-            color: white;
-            font-size: 24px;
-            font-family: var(--font-main);
+            background: rgba(196, 196, 196, 0.14);
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            padding: 22px 28px;
+            color: #fff;
+            font-size: 22px;
             outline: none;
-            transition: background 0.3s;
+            transition: background var(--transition), border-color var(--transition);
         }
 
         .form-control::placeholder {
-            color: #A4A4A4;
+            color: rgba(255, 255, 255, 0.62);
         }
 
         .form-control:focus {
             background: rgba(196, 196, 196, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         textarea.form-control {
-            height: 200px;
-            resize: none;
+            min-height: 170px;
+            resize: vertical;
         }
 
         .btn-submit {
             width: 100%;
-            background: white;
+            background: #fff;
             color: var(--dark-color);
             border: none;
-            border-radius: 100px;
-            padding: 30px;
-            font-size: 30px;
+            border-radius: var(--radius-pill);
+            padding: 22px;
+            font-size: clamp(22px, 2.5vw, 30px);
             font-weight: 500;
-            margin-top: 20px;
+            margin-top: var(--space-3);
         }
 
         .btn-submit:hover {
-            background: #e0e0e0;
-            transform: translateY(-3px);
+            background: #ebebeb;
+            transform: translateY(-2px);
         }
 
-        /* Футер */
+        .form-status {
+            margin-top: var(--space-4);
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 16px;
+            min-height: 24px;
+        }
+
         .footer-bottom {
-            background: white;
-            border-radius: 60px;
-            margin-top: 100px;
-            padding: 60px;
+            background: #fff;
+            border-radius: 48px;
+            margin-top: var(--space-20);
+            padding: var(--space-12);
             position: relative;
             z-index: 2;
             overflow: hidden;
@@ -510,313 +657,496 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: var(--space-12);
             position: relative;
             z-index: 2;
         }
 
         .footer-socials {
             display: flex;
-            gap: 15px;
-            margin-top: 30px;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
         }
 
         .social-btn {
-            width: 50px;
-            height: 50px;
-            background: #D7D7D7;
+            width: 46px;
+            height: 46px;
+            background: #d7d7d7;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-weight: 600;
             color: var(--dark-color);
         }
-        .social-btn:hover { background: #000; color: #fff; transform: translateY(-3px); }
+
+        .social-btn:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .footer-description {
+            margin-top: var(--space-8);
+            color: var(--text-muted);
+            max-width: 400px;
+            line-height: 1.45;
+        }
 
         .footer-nav {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: var(--space-3);
             font-size: 20px;
             font-weight: 500;
         }
 
         .footer-big-text {
-            font-size: clamp(80px, 15vw, 243px);
+            font-size: clamp(60px, 11vw, 180px);
             font-weight: 600;
-            color: #F0F0F0;
+            color: #f0f0f0;
             text-align: center;
-            line-height: 1;
-            margin-top: 50px;
+            line-height: 0.95;
+            margin-top: var(--space-8);
             user-select: none;
         }
 
-        /* ================= АДАПТИВ (Mobile) ================= */
         @media (max-width: 1024px) {
-            .about-grid { grid-template-columns: 1fr; }
-            .speaker-slider { flex-direction: column; text-align: center; padding: 40px; }
-            .slider-image { margin-top: 40px; }
-            .slider-image img { width: 100%; height: auto; }
-            .slider-controls { justify-content: center; }
-            .events-wrapper { gap: 20px; }
-            .event-card { min-width: 300px; }
-            .nav-links { display: none; } /* Простое скрытие меню на мобилках */
-            .form-container { border-radius: 40px; padding: 30px; }
-            .form-control { font-size: 18px; padding: 20px; }
-            .btn-submit { font-size: 20px; padding: 20px; }
-            .footer-content { flex-direction: column; gap: 40px; }
+            .container {
+                padding: 0 var(--space-5);
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .btn-outline {
+                display: none;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: calc(100% + 8px);
+                right: 0;
+                min-width: 220px;
+                background: rgba(255, 255, 255, 0.96);
+                border-radius: 16px;
+                box-shadow: 0 20px 34px rgba(0, 0, 0, 0.12);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: var(--space-4);
+                gap: var(--space-3);
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-8px);
+                transition: opacity var(--transition), transform var(--transition);
+            }
+
+            .nav-links.mobile-open {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .speaker-slider {
+                flex-direction: column;
+                text-align: center;
+                padding: var(--space-8);
+            }
+
+            .slider-image {
+                margin-top: var(--space-4);
+            }
+
+            .slider-image img {
+                width: 100%;
+                height: auto;
+                max-height: 460px;
+            }
+
+            .slider-controls {
+                justify-content: center;
+            }
+
+            .event-card {
+                min-width: 300px;
+            }
+
+            .form-container {
+                border-radius: 32px;
+                padding: var(--space-6);
+            }
+
+            .form-control {
+                font-size: 18px;
+                padding: 18px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 60px 0 100px; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px; }
-            .btn-black { padding: 15px 30px; font-size: 18px; }
-            .contact-section { border-top-left-radius: 60px; border-top-right-radius: 60px; }
-            .slider-bg-1, .slider-bg-2 { display: none; } /* Убираем слои на мобилках для чистоты */
+            .hero {
+                padding: 72px 0 92px;
+                border-bottom-left-radius: 44px;
+                border-bottom-right-radius: 44px;
+            }
+
+            .hero-glow,
+            .hero-glow-2 {
+                opacity: 0.34;
+            }
+
+            .contact-section {
+                border-top-left-radius: 44px;
+                border-top-right-radius: 44px;
+            }
+
+            .slider-bg-1,
+            .slider-bg-2 {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Шапка -->
-    <header class="container">
+    <header class="container reveal">
         <div class="logo">KERNEL</div>
-        <nav class="nav-links">
+        <nav class="nav-links" id="primary-nav" aria-label="Основная навигация">
             <a href="#about">Кто мы</a>
             <a href="#benefits">Преимущества</a>
             <a href="#events">Кейсы</a>
             <a href="#contact">Контакты</a>
         </nav>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <a href="#contact" class="btn-outline">Написать нам</a>
     </header>
 
-    <!-- Главный экран -->
-    <section class="hero">
-        <div class="hero-glow"></div>
-        <div class="hero-glow-2"></div>
-        <div class="container">
-            <h1>Студенческий бизнес-клуб, где находят будущих партнеров и сильных людей</h1>
-            <p>Мы приглашаем предпринимателей и управленцев делиться реальным опытом — и соединяем их с мотивированными студентами</p>
-            <a href="#contact" class="btn-black">Хочу сотрудничать <span>→</span></a>
-        </div>
-    </section>
+    <main>
+        <section class="hero reveal">
+            <div class="hero-glow" aria-hidden="true"></div>
+            <div class="hero-glow-2" aria-hidden="true"></div>
+            <div class="container">
+                <h1>Студенческий бизнес-клуб, где находят будущих партнеров и сильных людей</h1>
+                <p>Мы приглашаем предпринимателей и управленцев делиться реальным опытом — и соединяем их с мотивированными студентами.</p>
+                <a href="#contact" class="btn-black">Хочу сотрудничать <span aria-hidden="true">→</span></a>
+            </div>
+        </section>
 
-    <!-- Секция О нас -->
-    <section id="about" class="about container">
-        <h2>Мы — студенческий бизнес-клуб, который организует встречи с предпринимателями и практиками из бизнеса</h2>
-        <div class="about-grid">
-            <div class="about-card">
-                <h3>Наша аудитория — студенты</h3>
-                <p>которые уже думают про карьеру, предпринимательство и реальные проекты</p>
-                <!-- Замени URL на свою картинку -->
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студенты">
+        <section id="about" class="about container reveal">
+            <h2>Мы — студенческий бизнес-клуб, который организует встречи с предпринимателями и практиками из бизнеса</h2>
+            <div class="about-grid">
+                <article class="about-card reveal">
+                    <h3>Наша аудитория — студенты</h3>
+                    <p>которые уже думают про карьеру, предпринимательство и реальные проекты.</p>
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студенты на обучающем мероприятии" loading="lazy" decoding="async">
+                </article>
+                <article class="about-card reveal">
+                    <h3>Мы ценим время спикеров</h3>
+                    <p>поэтому делаем компактные, содержательные мероприятия без формальностей и лишней бюрократии.</p>
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Выступление эксперта перед аудиторией" loading="lazy" decoding="async">
+                </article>
             </div>
-            <div class="about-card">
-                <h3>Мы ценим время спикеров</h3>
-                <p>поэтому делаем компактные, содержательные мероприятия без формальностей и лишней бюрократии</p>
-                <!-- Замени URL на свою картинку -->
-                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Выступление">
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Слайдер "Что получает спикер" -->
-    <section id="benefits" class="speaker-benefits container">
-        <div class="slider-bg-2"></div>
-        <div class="slider-bg-1"></div>
-        
-        <div class="speaker-slider">
-            <div class="slider-content">
-                <div class="slider-label">что получает спикер</div>
-                <h3 class="slider-title" id="slide-title">Меценатство</h3>
-                <p class="slider-text" id="slide-text">Вы напрямую влияете на развитие будущих предпринимателей и управленцев</p>
-                
-                <div class="slider-controls">
-                    <button class="slider-btn" onclick="prevSlide()">←</button>
-                    <button class="slider-btn" onclick="nextSlide()">→</button>
-                </div>
-            </div>
-            <div class="slider-image">
-                <!-- Замени URL на свою картинку -->
-                <img id="slide-img" src="https://images.unsplash.com/photo-1475721025592-569df5114704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Спикер">
-            </div>
-        </div>
-    </section>
+        <section id="benefits" class="speaker-benefits container reveal">
+            <div class="slider-bg-2" aria-hidden="true"></div>
+            <div class="slider-bg-1" aria-hidden="true"></div>
 
-    <!-- Слайдер "Наши мероприятия" (Горизонтальный скролл) -->
-    <section id="events" class="events container">
-        <h2>Наши мероприятия</h2>
-        <div class="events-wrapper" id="eventsWrapper">
-            <!-- Карточка 1 -->
-            <div class="event-card">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ивент 1">
-                <h4>Прожарка с Романом Сакутиным</h4>
-                <p class="subtitle">Уроки, которые спасут ваш проект</p>
-                <p class="quote">«Честно говоря, это было настоящим челленджем: координировать всех, успеть всё подготовить и сделать встречу максимально полезной для вас — но мы справились!»</p>
-                <div class="event-author">
-                    <div>
-                        <div class="author-role">Founder</div>
-                        <div class="author-company">AGAVA и ЯЮниор</div>
+            <div class="speaker-slider">
+                <div class="slider-content">
+                    <p class="slider-label">что получает спикер</p>
+                    <h3 class="slider-title" id="slide-title">Меценатство</h3>
+                    <p class="slider-text" id="slide-text">Вы напрямую влияете на развитие будущих предпринимателей и управленцев.</p>
+
+                    <div class="slider-controls">
+                        <button class="slider-btn js-slide-prev" type="button" aria-label="Предыдущий слайд">←</button>
+                        <button class="slider-btn js-slide-next" type="button" aria-label="Следующий слайд">→</button>
                     </div>
-                    <div>@sakutin_rom</div>
+                </div>
+                <div class="slider-image">
+                    <img id="slide-img" src="https://images.unsplash.com/photo-1475721025592-569df5114704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Спикер на сцене" loading="lazy" decoding="async">
                 </div>
             </div>
-            
-            <!-- Карточка 2 -->
-            <div class="event-card">
-                <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ивент 2">
-                <h4>Построение сильной команды</h4>
-                <p class="subtitle">Опыт создания IT продуктов</p>
-                <p class="quote">«Главный инсайт: не бойтесь нанимать людей, которые умнее вас. Именно они двигают компанию вперед.»</p>
-                <div class="event-author">
-                    <div>
-                        <div class="author-role">СЕО</div>
-                        <div class="author-company">TechWave</div>
+        </section>
+
+        <section id="events" class="events container reveal">
+            <h2>Наши мероприятия</h2>
+            <div class="events-wrapper" id="eventsWrapper" aria-label="Карточки мероприятий">
+                <article class="event-card reveal">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ивент с Романом Сакутиным" loading="lazy" decoding="async">
+                    <h4>Прожарка с Романом Сакутиным</h4>
+                    <p class="subtitle">Уроки, которые спасут ваш проект</p>
+                    <p class="quote">«Честно говоря, это было настоящим челленджем: координировать всех, успеть всё подготовить и сделать встречу максимально полезной для вас — но мы справились!»</p>
+                    <div class="event-author">
+                        <div>
+                            <div class="author-role">Founder</div>
+                            <div class="author-company">AGAVA и ЯЮниор</div>
+                        </div>
+                        <div>@sakutin_rom</div>
                     </div>
-                    <div>@tech_wave</div>
-                </div>
+                </article>
+
+                <article class="event-card reveal">
+                    <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Лекция о построении команды" loading="lazy" decoding="async">
+                    <h4>Построение сильной команды</h4>
+                    <p class="subtitle">Опыт создания IT-продуктов</p>
+                    <p class="quote">«Главный инсайт: не бойтесь нанимать людей, которые умнее вас. Именно они двигают компанию вперед.»</p>
+                    <div class="event-author">
+                        <div>
+                            <div class="author-role">CEO</div>
+                            <div class="author-company">TechWave</div>
+                        </div>
+                        <div>@tech_wave</div>
+                    </div>
+                </article>
+
+                <article class="event-card reveal">
+                    <img src="https://images.unsplash.com/photo-1540317580384-e5d43867caa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Сессия про инвестиции" loading="lazy" decoding="async">
+                    <h4>Привлечение инвестиций</h4>
+                    <p class="subtitle">Как правильно питчить идею</p>
+                    <p class="quote">«Инвесторы вкладывают в команду, а не в идею. Покажите вашу страсть и компетенции.»</p>
+                    <div class="event-author">
+                        <div>
+                            <div class="author-role">Partner</div>
+                            <div class="author-company">VC Fund</div>
+                        </div>
+                        <div>@invest_fund</div>
+                    </div>
+                </article>
             </div>
 
-            <!-- Карточка 3 (для скролла) -->
-            <div class="event-card">
-                <img src="https://images.unsplash.com/photo-1540317580384-e5d43867caa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ивент 3">
-                <h4>Привлечение инвестиций</h4>
-                <p class="subtitle">Как правильно питчить идею</p>
-                <p class="quote">«Инвесторы вкладывают в команду, а не в идею. Покажите вашу страсть и компетенции.»</p>
-                <div class="event-author">
-                    <div>
-                        <div class="author-role">Partner</div>
-                        <div class="author-company">VC Fund</div>
-                    </div>
-                    <div>@invest_fund</div>
-                </div>
+            <div class="events-controls">
+                <button class="slider-btn js-events-scroll" type="button" data-direction="-1" aria-label="Предыдущее мероприятие">←</button>
+                <button class="slider-btn js-events-scroll" type="button" data-direction="1" aria-label="Следующее мероприятие">→</button>
             </div>
-        </div>
-        
-        <!-- Кнопки для управления скроллом мероприятий -->
-        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
-            <button class="slider-btn" onclick="scrollEvents(-1)">←</button>
-            <button class="slider-btn" onclick="scrollEvents(1)">→</button>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Секция Контактов (Темная) -->
-    <section id="contact" class="contact-section">
-        <div class="contact-glow-1"></div>
+    <section id="contact" class="contact-section reveal">
+        <div class="contact-glow-1" aria-hidden="true"></div>
         <div class="container">
             <div class="contact-header">
                 <h2>Готовы к сотрудничеству?</h2>
-                <p>Если вам интересно выступить, поработать со студентами или найти сильных людей — давайте обсудим формат</p>
+                <p>Если вам интересно выступить, поработать со студентами или найти сильных людей — давайте обсудим формат.</p>
             </div>
 
-            <div class="form-container">
-                <form onsubmit="event.preventDefault(); alert('Форма отправлена!');">
+            <div class="form-container reveal">
+                <form id="contact-form">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Имя, Фамилия" required>
+                        <label class="sr-only" for="name">Имя и фамилия</label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Имя, Фамилия" autocomplete="name" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Компания, род деятельности" required>
+                        <label class="sr-only" for="company">Компания и род деятельности</label>
+                        <input id="company" name="company" type="text" class="form-control" placeholder="Компания, род деятельности" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Комментарий"></textarea>
+                        <label class="sr-only" for="email">Электронная почта</label>
+                        <input id="email" name="email" type="email" class="form-control" placeholder="Email" autocomplete="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="comment">Комментарий</label>
+                        <textarea id="comment" name="comment" class="form-control" placeholder="Комментарий"></textarea>
                     </div>
                     <button type="submit" class="btn-submit">Отправить форму</button>
+                    <p class="form-status" id="form-status" aria-live="polite"></p>
                 </form>
             </div>
 
-            <!-- Белый блок Футера внутри темной секции -->
-            <div class="footer-bottom">
+            <footer class="footer-bottom reveal">
                 <div class="footer-content">
                     <div>
                         <div class="logo">KERNEL</div>
                         <div class="footer-socials">
-                            <a href="#" class="social-btn">VK</a>
-                            <a href="#" class="social-btn">TG</a>
-                            <a href="#" class="social-btn">IN</a>
+                            <a href="#" class="social-btn" aria-label="Мы во ВКонтакте">VK</a>
+                            <a href="#" class="social-btn" aria-label="Мы в Telegram">TG</a>
+                            <a href="#" class="social-btn" aria-label="Мы в LinkedIn">IN</a>
                         </div>
-                        <p style="margin-top: 40px; color: var(--text-muted); max-width: 400px; line-height: 1.5;">
-                            Мы приглашаем предпринимателей и управленцев делиться реальным опытом — и соединяем их с мотивированными студентами
+                        <p class="footer-description">
+                            Мы приглашаем предпринимателей и управленцев делиться реальным опытом — и соединяем их с мотивированными студентами.
                         </p>
                     </div>
-                    <div class="footer-nav">
-                        <a href="#about" style="color: var(--dark-color);">Кто мы</a>
-                        <a href="#benefits" style="color: var(--dark-color);">Преимущества</a>
-                        <a href="#events" style="color: var(--dark-color);">Кейсы</a>
-                        <a href="#contact" style="color: var(--dark-color);">Контакты</a>
-                    </div>
+                    <nav class="footer-nav" aria-label="Навигация футера">
+                        <a href="#about">Кто мы</a>
+                        <a href="#benefits">Преимущества</a>
+                        <a href="#events">Кейсы</a>
+                        <a href="#contact">Контакты</a>
+                    </nav>
                     <div>
-                        <a href="#contact" class="btn-black" style="padding: 15px 30px; font-size: 18px;">Хочу сотрудничать</a>
+                        <a href="#contact" class="btn-black" style="padding: 14px 26px; font-size: 18px;">Хочу сотрудничать</a>
                     </div>
                 </div>
-                <div class="footer-big-text">BUSINESS CLUB</div>
-            </div>
+                <p class="footer-big-text" aria-hidden="true">BUSINESS CLUB</p>
+            </footer>
         </div>
     </section>
 
-    <!-- JS для логики слайдеров -->
     <script>
-        // Данные для слайдера "Что получает спикер"
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const primaryNav = document.getElementById('primary-nav');
+
+        if (menuToggle && primaryNav) {
+            menuToggle.addEventListener('click', () => {
+                const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                menuToggle.setAttribute('aria-expanded', String(!expanded));
+                primaryNav.classList.toggle('mobile-open', !expanded);
+            });
+
+            primaryNav.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    primaryNav.classList.remove('mobile-open');
+                });
+            });
+        }
+
         const slides = [
             {
-                title: "Меценатство",
-                text: "Вы напрямую влияете на развитие будущих предпринимателей и управленцев",
-                img: "https://images.unsplash.com/photo-1475721025592-569df5114704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                title: 'Меценатство',
+                text: 'Вы напрямую влияете на развитие будущих предпринимателей и управленцев.',
+                img: 'https://images.unsplash.com/photo-1475721025592-569df5114704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
             },
             {
-                title: "Нетворкинг",
-                text: "Возможность познакомиться с другими сильными спикерами и найти партнеров",
-                img: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                title: 'Нетворкинг',
+                text: 'Возможность познакомиться с другими сильными спикерами и найти партнеров.',
+                img: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
             },
             {
-                title: "Рекрутинг",
-                text: "Найдите самых талантливых и мотивированных студентов для ваших проектов",
-                img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                title: 'Рекрутинг',
+                text: 'Найдите самых талантливых и мотивированных студентов для ваших проектов.',
+                img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
             }
         ];
 
         let currentSlide = 0;
-        
+
         const titleEl = document.getElementById('slide-title');
         const textEl = document.getElementById('slide-text');
         const imgEl = document.getElementById('slide-img');
+        const prevBtn = document.querySelector('.js-slide-prev');
+        const nextBtn = document.querySelector('.js-slide-next');
+
+        function animateOut(elements) {
+            elements.forEach((el) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(8px)';
+            });
+        }
+
+        function animateIn(elements) {
+            elements.forEach((el) => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            });
+        }
 
         function updateSlide() {
-            // Простая анимация скрытия/появления
-            titleEl.style.opacity = '0';
-            textEl.style.opacity = '0';
-            imgEl.style.opacity = '0';
-            
+            if (!titleEl || !textEl || !imgEl) return;
+
+            if (reduceMotion) {
+                titleEl.textContent = slides[currentSlide].title;
+                textEl.textContent = slides[currentSlide].text;
+                imgEl.src = slides[currentSlide].img;
+                return;
+            }
+
+            animateOut([titleEl, textEl, imgEl]);
+
             setTimeout(() => {
                 titleEl.textContent = slides[currentSlide].title;
                 textEl.textContent = slides[currentSlide].text;
                 imgEl.src = slides[currentSlide].img;
-                
-                titleEl.style.opacity = '1';
-                textEl.style.opacity = '1';
-                imgEl.style.opacity = '1';
-                
-                // Добавляем transition для плавности
-                titleEl.style.transition = 'opacity 0.3s ease';
-                textEl.style.transition = 'opacity 0.3s ease';
-                imgEl.style.transition = 'opacity 0.3s ease';
-            }, 300);
+                animateIn([titleEl, textEl, imgEl]);
+            }, 170);
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlide();
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlide();
+            });
         }
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateSlide();
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlide();
+            });
         }
 
-        // Логика прокрутки (свайпа) для карточек мероприятий
+        const eventsWrapper = document.getElementById('eventsWrapper');
+        const eventButtons = document.querySelectorAll('.js-events-scroll');
+
         function scrollEvents(direction) {
-            const wrapper = document.getElementById('eventsWrapper');
-            // Прокручиваем на ширину одной карточки + gap (примерно 480px)
-            const scrollAmount = 480 * direction; 
-            wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            if (!eventsWrapper) return;
+            const card = eventsWrapper.querySelector('.event-card');
+            const gap = parseFloat(getComputedStyle(eventsWrapper).gap || '0');
+            const cardWidth = card ? card.getBoundingClientRect().width : 320;
+            const step = (cardWidth + gap) * direction;
+
+            eventsWrapper.scrollBy({
+                left: step,
+                behavior: reduceMotion ? 'auto' : 'smooth'
+            });
+        }
+
+        eventButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const direction = Number(button.dataset.direction || 1);
+                scrollEvents(direction);
+            });
+        });
+
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        if (contactForm && formStatus) {
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                formStatus.textContent = 'Спасибо! Заявка отправлена, мы свяжемся с вами в ближайшее время.';
+                contactForm.reset();
+            });
+        }
+
+        if (!reduceMotion && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+        } else {
+            document.querySelectorAll('.reveal').forEach((element) => element.classList.add('visible'));
         }
     </script>
 </body>
