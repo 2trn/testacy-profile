@@ -203,7 +203,7 @@
         .btn-outline:hover {
             background: var(--dark-color);
             color: var(--bg-color);
-            transform: translateY(-2px);
+            transform: scale(1.02);
         }
 
         .hero {
@@ -289,7 +289,7 @@
         }
 
         .btn-black:hover {
-            transform: translateY(-2px);
+            transform: scale(1.02);
             box-shadow: 0 20px 42px rgba(0, 0, 0, 0.2);
         }
 
@@ -447,12 +447,12 @@
 
         .slider-btn:hover {
             background: #c3c3c3;
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
 
         .events {
             padding: var(--space-24) 0;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .events h2 {
@@ -465,7 +465,7 @@
             display: flex;
             gap: var(--space-8);
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            scroll-snap-type: x proximity;
             padding-bottom: var(--space-8);
             scrollbar-width: none;
         }
@@ -489,7 +489,7 @@
         }
 
         .event-card:hover img {
-            transform: translateY(-3px);
+            transform: scale(1.02);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
@@ -632,7 +632,7 @@
 
         .btn-submit:hover {
             background: #ebebeb;
-            transform: translateY(-2px);
+            transform: scale(1.01);
         }
 
         .form-status {
@@ -683,7 +683,7 @@
         .social-btn:hover {
             background: #000;
             color: #fff;
-            transform: translateY(-2px);
+            transform: scale(1.06);
         }
 
         .footer-description {
@@ -798,6 +798,31 @@
                 border-bottom-right-radius: 44px;
             }
 
+            main > section + section {
+                margin-top: var(--space-10);
+            }
+
+            .about,
+            .speaker-benefits,
+            .events {
+                padding: var(--space-16) 0;
+            }
+
+            .about h2,
+            .events h2,
+            .contact-header {
+                margin-bottom: var(--space-12);
+            }
+
+            .contact-section {
+                margin-top: var(--space-10);
+                padding: 88px 0 56px;
+            }
+
+            .speaker-slider {
+                gap: var(--space-6);
+            }
+
             .hero-glow,
             .hero-glow-2 {
                 opacity: 0.34;
@@ -850,7 +875,7 @@
             <div class="hero-glow" aria-hidden="true"></div>
             <div class="hero-glow-2" aria-hidden="true"></div>
             <div class="container">
-                <h1>Студенческий бизнес-клуб, где находят будущих партнеров и сильных людей</h1>
+                <h1 data-no-widows>Студенческий бизнес-клуб, где находят будущих партнеров и сильных людей</h1>
                 <p>Мы приглашаем предпринимателей и управленцев делиться реальным опытом — и соединяем их с мотивированными студентами.</p>
                 <a href="#contact" class="btn-black">Хочу сотрудничать <span aria-hidden="true">→</span></a>
             </div>
@@ -888,7 +913,7 @@
                     </div>
                 </div>
                 <div class="slider-image">
-                    <img id="slide-img" src="https://images.unsplash.com/photo-1475721025592-569df5114704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Спикер на сцене" loading="lazy" decoding="async">
+                    <img id="slide-img" src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Спикер на сцене" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -925,7 +950,7 @@
                 </article>
 
                 <article class="event-card reveal">
-                    <img src="https://images.unsplash.com/photo-1540317580384-e5d43867caa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Сессия про инвестиции" loading="lazy" decoding="async">
+                    <img src="https://images.pexels.com/photos/4968630/pexels-photo-4968630.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Сессия про инвестиции" loading="lazy" decoding="async">
                     <h4>Привлечение инвестиций</h4>
                     <p class="subtitle">Как правильно питчить идею</p>
                     <p class="quote">«Инвесторы вкладывают в команду, а не в идею. Покажите вашу страсть и компетенции.»</p>
@@ -935,6 +960,48 @@
                             <div class="author-company">VC Fund</div>
                         </div>
                         <div>@invest_fund</div>
+                    </div>
+                </article>
+
+                <article class="event-card reveal">
+                    <img src="https://images.pexels.com/photos/3182743/pexels-photo-3182743.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Разбор стартап-проектов" loading="lazy" decoding="async">
+                    <h4>Фаундерские разборы</h4>
+                    <p class="subtitle">Диагностика бизнес-моделей за 90 минут</p>
+                    <p class="quote">«Мы разобрали 12 проектов и у каждого нашли точку роста, которую можно внедрить уже завтра.»</p>
+                    <div class="event-author">
+                        <div>
+                            <div class="author-role">Managing Partner</div>
+                            <div class="author-company">ScaleLab</div>
+                        </div>
+                        <div>@scalelab_msk</div>
+                    </div>
+                </article>
+
+                <article class="event-card reveal">
+                    <img src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Воркшоп по маркетингу" loading="lazy" decoding="async">
+                    <h4>Маркетинг без бюджета</h4>
+                    <p class="subtitle">Как запускать спрос через контент и комьюнити</p>
+                    <p class="quote">«Рынок реагирует на честный продукт и сильную упаковку — даже если бюджет пока минимальный.»</p>
+                    <div class="event-author">
+                        <div>
+                            <div class="author-role">CMO</div>
+                            <div class="author-company">B2B Growth</div>
+                        </div>
+                        <div>@b2bgrowth_team</div>
+                    </div>
+                </article>
+
+                <article class="event-card reveal">
+                    <img src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Практика по юнит-экономике" loading="lazy" decoding="async">
+                    <h4>Юнит-экономика на практике</h4>
+                    <p class="subtitle">Считаем метрики, которые влияют на выручку</p>
+                    <p class="quote">«Когда команда видит реальную экономику продукта, решения становятся быстрее и точнее.»</p>
+                    <div class="event-author">
+                        <div>
+                            <div class="author-role">Product Lead</div>
+                            <div class="author-company">Data Ventures</div>
+                        </div>
+                        <div>@dataventures</div>
                     </div>
                 </article>
             </div>
@@ -1030,7 +1097,7 @@
             {
                 title: 'Меценатство',
                 text: 'Вы напрямую влияете на развитие будущих предпринимателей и управленцев.',
-                img: 'https://images.unsplash.com/photo-1475721025592-569df5114704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+                img: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=900'
             },
             {
                 title: 'Нетворкинг',
@@ -1049,8 +1116,28 @@
         const titleEl = document.getElementById('slide-title');
         const textEl = document.getElementById('slide-text');
         const imgEl = document.getElementById('slide-img');
+        const slideImageFallback = 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=900';
         const prevBtn = document.querySelector('.js-slide-prev');
         const nextBtn = document.querySelector('.js-slide-next');
+
+        function protectFromWidows(selector) {
+            const target = document.querySelector(selector);
+            if (!target) return;
+
+            const original = target.textContent.trim();
+            const fixed = original.replace(/\b(и|а|но|да|в|к|с|у|о|об|от|до|по|за|из|без|под|над|при|для|где)\s+/gi, (match, shortWord) => `${shortWord}\u00A0`);
+            target.textContent = fixed;
+        }
+
+        protectFromWidows('[data-no-widows]');
+
+        if (imgEl) {
+            imgEl.addEventListener('error', () => {
+                if (imgEl.src !== slideImageFallback) {
+                    imgEl.src = slideImageFallback;
+                }
+            });
+        }
 
         function animateOut(elements) {
             elements.forEach((el) => {
@@ -1102,6 +1189,7 @@
 
         const eventsWrapper = document.getElementById('eventsWrapper');
         const eventButtons = document.querySelectorAll('.js-events-scroll');
+        let loopSetWidth = 0;
 
         function scrollEvents(direction) {
             if (!eventsWrapper) return;
@@ -1115,6 +1203,66 @@
                 behavior: reduceMotion ? 'auto' : 'smooth'
             });
         }
+
+        function setupInfiniteEventsScroll() {
+            if (!eventsWrapper || eventsWrapper.dataset.loopReady === 'true') return;
+
+            const originalCards = Array.from(eventsWrapper.querySelectorAll('.event-card'));
+            if (!originalCards.length) return;
+
+            originalCards.forEach((card) => {
+                card.dataset.original = 'true';
+            });
+
+            const prependClones = originalCards.map((card) => card.cloneNode(true)).reverse();
+            const appendClones = originalCards.map((card) => card.cloneNode(true));
+
+            const normalizeClone = (clone) => {
+                clone.dataset.clone = 'true';
+                clone.classList.remove('reveal');
+                clone.classList.add('visible');
+            };
+
+            prependClones.forEach((clone) => {
+                normalizeClone(clone);
+                eventsWrapper.insertBefore(clone, eventsWrapper.firstChild);
+            });
+
+            appendClones.forEach((clone) => {
+                normalizeClone(clone);
+                eventsWrapper.appendChild(clone);
+            });
+
+            const measureSetWidth = () => {
+                const originals = Array.from(eventsWrapper.querySelectorAll('.event-card[data-original="true"]'));
+                const gap = parseFloat(getComputedStyle(eventsWrapper).gap || '0');
+                loopSetWidth = originals.reduce((sum, card) => sum + card.getBoundingClientRect().width, 0) + (gap * originals.length);
+            };
+
+            measureSetWidth();
+            eventsWrapper.scrollLeft = loopSetWidth;
+            eventsWrapper.dataset.loopReady = 'true';
+
+            eventsWrapper.addEventListener('scroll', () => {
+                if (!loopSetWidth) return;
+
+                if (eventsWrapper.scrollLeft <= 4) {
+                    eventsWrapper.scrollLeft += loopSetWidth;
+                } else if (eventsWrapper.scrollLeft >= (loopSetWidth * 2) - 4) {
+                    eventsWrapper.scrollLeft -= loopSetWidth;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', () => {
+                if (!loopSetWidth) return;
+
+                const ratio = eventsWrapper.scrollLeft / loopSetWidth;
+                measureSetWidth();
+                eventsWrapper.scrollLeft = loopSetWidth * ratio;
+            });
+        }
+
+        setupInfiniteEventsScroll();
 
         eventButtons.forEach((button) => {
             button.addEventListener('click', () => {
